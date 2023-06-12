@@ -28,4 +28,11 @@ jobs:
         CRITICAL: 5
       run: docker run --rm -i -v $(pwd)/horusec.json:/app/horusec.json:z -e FILE=$FILE -e TOOLS=$TOOLS -e ALLOW_FAILURE=$ALLOW_FAILURE -e CRITICAL=$CRITICAL roxsross12/tanasec:1.0.0  
       
-
+  linter:
+    name: linter dockerfile
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Install hadolint
+      continue-on-error: true
+      run: docker run --rm -i hadolint/hadolint < Dockerfile
