@@ -40,6 +40,11 @@ jobs:
   trivy:
     name: trivy scan
     runs-on: ubuntu-20.04
+    permissions:
+      # required for all workflows
+      security-events: write
+      actions: read
+      contents: read
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
