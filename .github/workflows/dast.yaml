@@ -18,4 +18,9 @@ jobs:
       with:
         name: owasp
         path: testreport.*   
-        
+    - name: upload faraday
+      run: |
+        pip install faraday-cli
+        faraday-cli auth -f ${{ secrets.FARADAY_HOST }} -u ${{ secrets.FARADAY_USER}} -p "${{ secrets.FARADAY_PASS }}"
+        faraday-cli workspace create ${{ github.event.repository.name}}-${{ github.run_number}}
+        faraday-cli tool report -w ${{ github.event.repository.name}}-${{ github.run_number}} testreport.xml
