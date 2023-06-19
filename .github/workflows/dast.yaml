@@ -24,3 +24,14 @@ jobs:
         faraday-cli auth -f ${{ secrets.FARADAY_HOST }} -u ${{ secrets.FARADAY_USER}} -p "${{ secrets.FARADAY_PASS }}"
         faraday-cli workspace create ${{ github.event.repository.name}}-${{ github.run_number}}
         faraday-cli tool report -w ${{ github.event.repository.name}}-${{ github.run_number}} testreport.xml
+
+  hawkscan:
+    name: HawkScan
+    runs-on: ubuntu-latest
+    steps:
+      - name: Clone repo
+        uses: actions/checkout@v2
+      - name: Run HawkScan
+        uses: stackhawk/hawkscan-action@v2
+        with:
+          apiKey: ${{ secrets.HAWK_API_KEY }}
