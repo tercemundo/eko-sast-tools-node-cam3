@@ -1,0 +1,21 @@
+name: dast
+
+on:
+  push:
+    branches: [ "master" ]
+
+jobs:
+
+  owasp:
+    name: Scan dast owasp
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Run Api Scan 
+      run: |
+        docker run --rm -v $(pwd):/zap/wrk/:rw --user root -t owasp/zap2docker-weekly zap-api-scan.py -t https://petstore3.swagger.io/api/v3/openapi.json -f openapi -m 1 -d -I -x testreport.xml -r testreport.html
+    - uses: actions/upload-artifact@v3
+      with:
+        name: owasp
+        path: testreport.*   
+        

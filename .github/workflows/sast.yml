@@ -2,7 +2,7 @@ name: sast
 
 on:
   push:
-    branches: [ "master" ]
+    branches: [ "prueba" ]
 
 jobs:
 
